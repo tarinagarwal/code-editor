@@ -1,0 +1,31 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: monthly
+    time: "13:00"
+    timezone: Europe/Brussels
+  open-pull-requests-limit: 99
+  labels:
+    - "dependencies"
+  groups:
+    eslint:
+      patterns:
+        - "eslint*"
+    codemirror:
+      patterns:
+        - "*codemirror*"
+        - "@lezer*"
+    types:
+      patterns:
+        - "@types*"
+- package-ecosystem: github-actions
+  directory: "/"
+  schedule:
+    interval: monthly
+    time: "13:00"
+    timezone: Europe/Brussels
+  open-pull-requests-limit: 99
+  labels:
+    - "dependencies"
