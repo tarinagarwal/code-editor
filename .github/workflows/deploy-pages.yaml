@@ -30,12 +30,12 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: dodona-edu/papyros
-          path: papyrus
+          path: papyros
           ref: main
       
       - name: Install and build main
         run: |
-          cd papyrus
+          cd papyros
           yarn install
           yarn setup
           yarn build:app
