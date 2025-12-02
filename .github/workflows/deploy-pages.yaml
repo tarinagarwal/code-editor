@@ -1,9 +1,17 @@
 name: Deploy on GitHub Pages
+
 on:
   workflow_dispatch:
   push:
     branches:
       - main
+
+# Add permissions for the workflow
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -14,35 +22,41 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      
       - name: Checkout branch
         uses: actions/checkout@v4
+      
       - name: Clone main
         uses: actions/checkout@v4
         with:
           repository: dodona-edu/papyros
-          path: papyros
+          path: papyrus
           ref: main
+      
       - name: Install and build main
         run: |
-          cd papyros
+          cd papyrus
           yarn install
           yarn setup
           yarn build:app
           cp -r public/* dist
           cd ..
+      
       - name: Install and build branch
         run: |
           yarn install
           yarn setup
           yarn build:app
           cp -r public/* dist
+      
       - name: Prepare builds to be deployed
         run: |
           mv dist devdist
           mv papyros/dist dist
           mv devdist dist/dev
+      
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4.7.2
         with:
-          branch: gh-pages # The branch the action should deploy to.
-          folder: dist # The folder the action should deploy.
+          branch: gh-pages
+          folder: dist
