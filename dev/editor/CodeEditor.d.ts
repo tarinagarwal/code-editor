@@ -1,0 +1,56 @@
+import { ProgrammingLanguage } from "../ProgrammingLanguage";
+import { EditorView } from "@codemirror/view";
+import { Diagnostic } from "@codemirror/lint";
+import { CodeMirrorEditor } from "./CodeMirrorEditor";
+/**
+ * Component that provides useful features to users writing code
+ */
+export declare class CodeEditor extends CodeMirrorEditor {
+    static PROGRAMMING_LANGUAGE: string;
+    static INDENTATION: string;
+    static PANEL: string;
+    static AUTOCOMPLETION: string;
+    static LINTING: string;
+    static DEBUGGING: string;
+    private debugExtension;
+    private testCodeExtension;
+    /**
+     * Construct a new CodeEditor
+     * @param {Function} onRunRequest Callback for when the user wants to run the code
+     * @param {string} initialCode The initial code to display
+     * @param {number} indentLength The length in spaces for the indent unit
+     */
+    constructor(onRunRequest: () => void, initialCode?: string, indentLength?: number);
+    set debugMode(value: boolean);
+    set testCode(code: string);
+    getText(): string;
+    getCode(): string;
+    setDarkMode(darkMode: boolean): void;
+    /**
+     * @param {ProgrammingLanguage} language The language to use
+     */
+    setProgrammingLanguage(language: ProgrammingLanguage): void;
+    /**
+     * @param {LintSource} lintSource Function to obtain linting results
+     */
+    setLintingSource(lintSource: (view: EditorView) => readonly Diagnostic[] | Promise<readonly Diagnostic[]>): void;
+    /**
+     * @param {number} indentLength The number of spaces to use for indentation
+     */
+    setIndentLength(indentLength: number): void;
+    /**
+     * @param {HTMLElement} panel The panel to display at the bottom of the editor
+     */
+    setPanel(panel: HTMLElement): void;
+    /**
+     * @param {number} indentLength The amount of spaces to use
+     * @return {string} The indentation unit to be used by CodeMirror
+     */
+    private static getIndentUnit;
+    /**
+     * @param  {ProgrammingLanguage} language The language to support
+     * @return {LanguageSupport} CodeMirror LanguageSupport for the language
+     */
+    private static getLanguageSupport;
+    private static getExtensions;
+}
