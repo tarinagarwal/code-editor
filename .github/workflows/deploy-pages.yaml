@@ -24,10 +24,10 @@ jobs:
           python-version: '3.12'
       
       - name: Checkout branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       
       - name: Clone main
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           repository: dodona-edu/papyros
           path: papyros
